@@ -6,6 +6,10 @@ import { styles } from './PokemonCard.styles'
 const PokemonCard = ({ navigation, pokemon }) => {
   const title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
 
+  if (!pokemon) {
+    return null
+  }
+
   return (
     <Card style={styles.card}>
       <Card.Title

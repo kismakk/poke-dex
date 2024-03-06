@@ -23,13 +23,13 @@ const Stats = ({ pokemon }) => {
     <>
       {statsArray?.map((stat) => {
         return (
-          <>
+          <View key={stat.name}>
             <View style={styles.stats_container}>
               <Text style={styles.stat_titles}>{stat.name.toUpperCase()}</Text>
               <Text>{stat.baseStat}</Text>
             </View>
             <ProgressBar progress={progressValue(stat.baseStat)} color={COLORS.light.accent} />
-          </>
+          </View>
         )
       })}
     </>

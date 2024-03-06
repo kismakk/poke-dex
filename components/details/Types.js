@@ -31,13 +31,12 @@ const Types = ({ pokemon }) => {
     name: type.type.name,
   }))
 
-  console.log(typeArray)
   return (
     <View style={styles.chip_container}>
       {typeArray?.map((type) => {
         return (
           <Chip
-            key={type}
+            key={type.name}
             style={{ backgroundColor: typeColors[type.name] }}
           >
             {type.name.toUpperCase()}

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, FlatList, ScrollView, Pressable, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
 import { COLORS, FONTWEIGHT, SIZES } from '../constants/theme'
 import SearchBar from '../components/search/SearchBar'
@@ -26,12 +26,25 @@ const Home = ({ navigation }) => {
     setOffset(prevOffset => prevOffset + 10)
   }
 
+  function handleSearchButtonPressed() {
+    navigation.navigate('Search', {
+      navigate: navigation.navigate
+    })
+  }
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.titles}>Welcome!</Text>
-      <SearchBar />
+      <Button
+        mode='contained-tonal'
+        buttonColor={COLORS.light.secondary}
+        icon='magnify'
+        onPress={handleSearchButtonPressed}
+      >
+        Search for Pokémons
+      </Button>
       <View style={styles.title_container}>
-      <Text style={styles.titles}>All Pokémons</Text>
+        <Text style={styles.titles}>All Pokémons</Text>
         <View style={styles.page_buttons}>
           <IconButton icon='chevron-left' size={28} onPress={handlePrevious} disabled={offset === 0} />
           <IconButton icon='chevron-right' size={28} onPress={handleNext} />
@@ -40,9 +53,9 @@ const Home = ({ navigation }) => {
       <FlatList
         data={pokemonArray}
         renderItem={({ item }) => <PokemonCard pokemon={item} navigation={navigation} />}
-        keyExtractor={item => item?.id}
+        keyExtractor={item => item.id.toString()}
       />
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -64,7 +77,7 @@ const styles = StyleSheet.create({
   },
   page_buttons: {
     flexDirection: 'row',
-  }
+  },
 })
 
 export default Home
