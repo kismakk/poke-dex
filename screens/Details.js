@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { FONTWEIGHT, SIZES } from '../constants/theme'
 import Stats from '../components/details/Stats'
 import Types from '../components/details/Types'
+import { Button } from 'react-native-paper'
 
 const Details = ({ route, navigation }) => {
+  const [isFavorite, setIsFavorite] = useState(false)
   const { pokemon, title } = route.params
 
   return (
@@ -15,11 +17,10 @@ const Details = ({ route, navigation }) => {
       </View>
       <Image
         source={{ uri: pokemon.sprites.front_default }}
-        style={{ width: 'auto', height: 300 }}
+        style={{ width: 'auto', height: 250, marginVertical: 10 }}
+        resizeMode='contain'
       />
-      <View style={styles.stats_container}>
-        <Stats pokemon={pokemon} />
-      </View>
+      <Stats pokemon={pokemon} />
     </View>
   )
 }
@@ -37,14 +38,9 @@ const styles = StyleSheet.create({
   title_container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: SIZES.small
   },
-  stats_container: {
-    // flexDirection: 'column',
-    // marginTop: SIZES.medium,
-    // justifyContent: 'center',
-    // alignItems: 'center'
-  }
 })
 
 export default Details

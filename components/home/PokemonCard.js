@@ -14,7 +14,7 @@ const PokemonCard = ({ navigation, pokemon }) => {
         titleStyle={styles.title}
         subtitleStyle={styles.subtitle}
       />
-      <Card.Cover src={pokemon.sprites.front_default} />
+      <Card.Cover src={pokemon.sprites.front_default} resizeMode='contain' />
       <Card.Actions>
         <Button
           mode='contained-tonal'
@@ -24,7 +24,7 @@ const PokemonCard = ({ navigation, pokemon }) => {
             title: title
           })}
         >
-          See more
+          See details
         </Button>
       </Card.Actions>
     </Card>

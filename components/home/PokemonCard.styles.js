@@ -5,7 +5,9 @@ export const styles = StyleSheet.create({
   card: {
     marginVertical: 10,
     marginHorizontal: 10,
-    backgroundColor: COLORS.light.background
+    backgroundColor: COLORS.light.background,
+    height: 'auto',
+    padding: 5
   },
   title: {
     fontSize: SIZES.medium,
