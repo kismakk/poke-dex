@@ -1,14 +1,14 @@
 import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { COLORS, FONTWEIGHT, SIZES } from '../constants/theme'
 import SearchBar from '../components/search/SearchBar'
 import PokemonCard from '../components/home/PokemonCard'
 import usePokemon from '../hooks/usePokemon'
-import { ActivityIndicator } from 'react-native-paper'
+import { ActivityIndicator, Button, IconButton } from 'react-native-paper'
 
 const Home = ({ navigation }) => {
-  const { pokemonDetails, dataFetched } = usePokemon()
-  const pokemonArray = Object.values(pokemonDetails).sort((a, b) => a.id - b.id)
+  const [offset, setOffset] = useState(0)
+  const { pokemonArray, dataFetched } = usePokemon(offset)
 
   if (!dataFetched) {
     return (
@@ -18,15 +18,29 @@ const Home = ({ navigation }) => {
     )
   }
 
+  function handlePrevious() {
+    setOffset(prevOffset => Math.max(0, prevOffset - 10))
+  }
+
+  function handleNext() {
+    setOffset(prevOffset => prevOffset + 10)
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.titles}>Welcome!</Text>
       <SearchBar />
+      <View style={styles.title_container}>
       <Text style={styles.titles}>All Pokémons</Text>
+        <View style={styles.page_buttons}>
+          <IconButton icon='chevron-left' size={28} onPress={handlePrevious} disabled={offset === 0} />
+          <IconButton icon='chevron-right' size={28} onPress={handleNext} />
+        </View>
+      </View>
       <FlatList
         data={pokemonArray}
         renderItem={({ item }) => <PokemonCard pokemon={item} navigation={navigation} />}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item?.id}
       />
     </View>
   )
@@ -41,6 +55,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: SIZES.small
+  },
+  title_container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: SIZES.small
+  },
+  page_buttons: {
+    flexDirection: 'row',
   }
 })
 

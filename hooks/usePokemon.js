@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 
-const usePokemon = (prev, next) => {
+const usePokemon = (offset) => {
   const [pokemons, setPokemons] = useState([]);
   const [pokemonDetails, setPokemonDetails] = useState([])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [dataFetched, setDataFetched] = useState(false)
-  const [offset, setOffset] = useState(0)
 
   useEffect(() => {
     const fetchPokemons = async () => {
       try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=10`);
         const data = await response.json();
         setPokemons(data.results);
+        setPokemonDetails({})
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -22,7 +22,7 @@ const usePokemon = (prev, next) => {
     };
 
     fetchPokemons();
-  }, []);
+  }, [offset]);
 
   const fetchPokemonDetails = async (url) => {
     try {
@@ -48,7 +48,9 @@ const usePokemon = (prev, next) => {
     }
   }, [loading, pokemons])
 
-  return { pokemons, loading, error, dataFetched, pokemonDetails };
+  const pokemonArray = Object.values(pokemonDetails).sort((a, b) => a.id - b.id)
+
+  return { pokemons, loading, error, dataFetched, pokemonArray };
 };
 
 export default usePokemon;
