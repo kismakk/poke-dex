@@ -4,7 +4,7 @@ import Home from './screens/Home';
 import Header from './components/header/Header';
 import Details from './screens/Details';
 import { COLORS } from './constants/theme';
-import Settings from './screens/Settings';
+import About from './screens/About'
 import Search from './screens/Search';
 
 const Stack = createNativeStackNavigator()
@@ -20,7 +20,7 @@ export default function App() {
       >
         <Stack.Screen name='Pokedéx' component={Home} />
         <Stack.Screen name='Details' component={Details} />
-        <Stack.Screen name='Settings' component={Settings} />
+        <Stack.Screen name='About' component={About} />
         <Stack.Screen name='Search' component={Search} />
       </Stack.Navigator>
     </NavigationContainer>

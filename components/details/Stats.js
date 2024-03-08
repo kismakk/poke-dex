@@ -12,10 +12,7 @@ const Stats = ({ pokemon }) => {
   }));
 
   const progressValue = (baseStat) => {
-    let value = baseStat / 100
-    if (value > 1) {
-      value = 1
-    }
+    let value = baseStat / 255
     return value
   }
 

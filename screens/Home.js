@@ -8,28 +8,29 @@ import { ActivityIndicator, Button, IconButton } from 'react-native-paper'
 
 const Home = ({ navigation }) => {
   const [offset, setOffset] = useState(0)
+  const [page, setPage] = useState(1)
   const { pokemonArray, dataFetched } = usePokemon(offset)
-
-  if (!dataFetched) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator color={COLORS.light.primary} />
-      </View>
-    )
-  }
 
   function handlePrevious() {
     setOffset(prevOffset => Math.max(0, prevOffset - 10))
+    setPage((prev) => prev - 1)
   }
 
   function handleNext() {
     setOffset(prevOffset => prevOffset + 10)
+    setPage((prev) => prev + 1)
   }
 
   function handleSearchButtonPressed() {
-    navigation.navigate('Search', {
-      navigate: navigation.navigate
-    })
+    navigation.navigate('Search')
+  }
+
+  if (!dataFetched) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator color={COLORS.light.primary} />
+      </View>
+    )
   }
 
   return (
@@ -47,6 +48,7 @@ const Home = ({ navigation }) => {
         <Text style={styles.titles}>All Pokémons</Text>
         <View style={styles.page_buttons}>
           <IconButton icon='chevron-left' size={28} onPress={handlePrevious} disabled={offset === 0} />
+          <Text>{page}</Text>
           <IconButton icon='chevron-right' size={28} onPress={handleNext} />
         </View>
       </View>
@@ -77,7 +79,14 @@ const styles = StyleSheet.create({
   },
   page_buttons: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 })
 
 export default Home

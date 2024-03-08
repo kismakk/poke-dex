@@ -72,7 +72,7 @@ const Search = ({ navigation }) => {
           <ActivityIndicator color={COLORS.light.primary} />
         </View> :
         <FlatList
-          data={Object.values(filteredPokemons)}
+          data={filteredPokemons}
           renderItem={({ item }) => <PokemonCard pokemon={item} navigation={navigation} />}
           keyExtractor={item => item?.id.toString()}
         />}

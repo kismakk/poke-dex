@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Button, Card } from 'react-native-paper'
 import { COLORS } from '../../constants/theme'
 import { styles } from './PokemonCard.styles'
@@ -35,4 +35,4 @@ const PokemonCard = ({ navigation, pokemon }) => {
   )
 }
 
-export default PokemonCard
+export default memo(PokemonCard)
