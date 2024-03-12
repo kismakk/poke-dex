@@ -6,6 +6,7 @@ import Details from './screens/Details';
 import { COLORS } from './constants/theme';
 import About from './screens/About'
 import Search from './screens/Search';
+import Favorites from './screens/Favorites';
 
 const Stack = createNativeStackNavigator()
 
@@ -22,6 +23,7 @@ export default function App() {
         <Stack.Screen name='Details' component={Details} />
         <Stack.Screen name='About' component={About} />
         <Stack.Screen name='Search' component={Search} />
+        <Stack.Screen name='Favorites' component={Favorites} />
       </Stack.Navigator>
     </NavigationContainer>
   );

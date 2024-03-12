@@ -11,6 +11,7 @@ const Header = ({ navigation, route, options, back, backgroundColor }) => {
       {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
       <Appbar.Content title={<Title title={title} />} />
       {back ? null : <Appbar.Action icon='information-outline' onPress={() => { navigation.navigate('About') }} />}
+      {back ? null : <Appbar.Action icon='heart-outline' onPress={() => { navigation.navigate('Favorites') }} />}
     </Appbar.Header>
   )
 }
