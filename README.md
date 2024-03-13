@@ -8,14 +8,14 @@ Welcome to Pokédex, a React Native project developed for a university course on
 - **List of all the Pokémons:** Browse through a list of all Pokémon with pagination support.   
 - **Details Page:** View detailed information about a Pokémon, including stats and types.   
 - **Search Functionality:** Search for a Pokémon by name.   
-- **Favorites:** Mark your favorite Pokémon, utilizing local storage with Expo Secure Storage.  
+- **Favorites:** Mark your favorite Pokémon, utilizing local storage with Expo SecureStore.  
 - **Pleasant UI:** Designed with React Native Paper for an enhanced user experience.
 
 ## Technologies Used  
 - [Expo](https://docs.expo.dev/): Development platform for React Native. 
 - [React Native Paper](https://callstack.github.io/react-native-paper/): UI components library. 
 - [React Navigation](https://reactnavigation.org/): Navigation library for routing between different pages. 
-- [Expo Secure Storage](https://docs.expo.dev/versions/latest/sdk/securestore/): Securely access the device's local storage. 
+- [Expo SecureStore](https://docs.expo.dev/versions/latest/sdk/securestore/): Securely access the device's local storage. 
 - [PokeAPI](https://pokeapi.co/): API for fetching Pokémon data. 
 - [Lodash](https://lodash.com/): Utility functions
 
