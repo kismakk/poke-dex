@@ -14,14 +14,14 @@ const Home = ({ navigation }) => {
   const { pokemonArray, dataFetched } = usePokemon(offset)
 
   const handlePrevious = useCallback(debounce(() => {
-    setOffset(prevOffset => Math.max(0, prevOffset - 10));
-    setPage(prev => prev - 1);
-  }, DEBOUNCE_DELAY), []);
+    setOffset(prevOffset => Math.max(0, prevOffset - 10))
+    setPage(prev => prev - 1)
+  }, DEBOUNCE_DELAY), [])
 
   const handleNext = useCallback(debounce(() => {
-    setOffset(prevOffset => prevOffset + 10);
-    setPage(prev => prev + 1);
-  }, DEBOUNCE_DELAY), []);
+    setOffset(prevOffset => prevOffset + 10)
+    setPage(prev => prev + 1)
+  }, DEBOUNCE_DELAY), [])
 
   function handleSearchButtonPressed() {
     navigation.navigate('Search')
