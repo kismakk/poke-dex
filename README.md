@@ -43,6 +43,6 @@ After the application has started, scan the QR code in the terminal to open the 
 
 If you encounter any issues or have suggestions for improvements, please submit them on the Issues page.
 
-If you'd like to contribute to the project, feel free to open a pull request. We welcome and appreciate contributions from the community!
+If you'd like to contribute to the project, feel free to open a pull request. I welcome and appreciate contributions from the community!
 
 **Happy Pokémon exploring!**
