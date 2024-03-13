@@ -1,5 +1,9 @@
 
 # Pokédex 
+<p align='center'>
+  <img src="https://github.com/kismakk/poke-dex/assets/119887923/bf817771-d777-4623-8824-a7bdc9fc9294" alt="screenshot of the app" width="600"/>
+</p>
+
 
 Welcome to Pokédex, a React Native project developed for a university course on mobile app development using React Native. This app is a hobby project of mine to explore developing a mobile application and provides a platform to explore information about various Pokémon. 
 
