@@ -1,36 +1,30 @@
-import { View, Text, StyleSheet, FlatList, ScrollView, Pressable, SafeAreaView } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native'
+import React, { useState, useCallback } from 'react'
 import { COLORS, FONTWEIGHT, SIZES } from '../constants/theme'
-import SearchBar from '../components/search/SearchBar'
 import PokemonCard from '../components/home/PokemonCard'
 import usePokemon from '../hooks/usePokemon'
 import { ActivityIndicator, Button, IconButton } from 'react-native-paper'
+import { debounce } from 'lodash'
+
+const DEBOUNCE_DELAY = 300
 
 const Home = ({ navigation }) => {
   const [offset, setOffset] = useState(0)
   const [page, setPage] = useState(1)
   const { pokemonArray, dataFetched } = usePokemon(offset)
 
-  function handlePrevious() {
-    setOffset(prevOffset => Math.max(0, prevOffset - 10))
-    setPage((prev) => prev - 1)
-  }
+  const handlePrevious = useCallback(debounce(() => {
+    setOffset(prevOffset => Math.max(0, prevOffset - 10));
+    setPage(prev => prev - 1);
+  }, DEBOUNCE_DELAY), []);
 
-  function handleNext() {
-    setOffset(prevOffset => prevOffset + 10)
-    setPage((prev) => prev + 1)
-  }
+  const handleNext = useCallback(debounce(() => {
+    setOffset(prevOffset => prevOffset + 10);
+    setPage(prev => prev + 1);
+  }, DEBOUNCE_DELAY), []);
 
   function handleSearchButtonPressed() {
     navigation.navigate('Search')
-  }
-
-  if (!dataFetched) {
-    return (
-      <View style={styles.loading}>
-        <ActivityIndicator color={COLORS.light.primary} />
-      </View>
-    )
   }
 
   return (
@@ -52,11 +46,15 @@ const Home = ({ navigation }) => {
           <IconButton icon='chevron-right' size={28} onPress={handleNext} />
         </View>
       </View>
+      {!dataFetched ?
+        <View style={styles.loading}>
+          <ActivityIndicator />
+        </View> :
       <FlatList
         data={pokemonArray}
         renderItem={({ item }) => <PokemonCard pokemon={item} navigation={navigation} />}
         keyExtractor={item => item.id.toString()}
-      />
+        />}
     </SafeAreaView>
   )
 }

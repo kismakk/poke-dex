@@ -9,6 +9,7 @@ const usePokemon = (offset) => {
 
   useEffect(() => {
     const fetchPokemons = async () => {
+      setDataFetched(false)
       try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=10`);
         const data = await response.json();
