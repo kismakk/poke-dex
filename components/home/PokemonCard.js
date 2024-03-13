@@ -1,58 +1,20 @@
-import React, { memo, useState, useEffect } from 'react'
+import React, { memo, useState, useEffect, useContext } from 'react'
 import { Button, Card, IconButton } from 'react-native-paper'
 import * as SecureStore from 'expo-secure-store'
 import { COLORS } from '../../constants/theme'
 import { styles } from './PokemonCard.styles'
+import { FavoriteContext } from '../context/favoriteContext'
 
 const PokemonCard = ({ navigation, pokemon }) => {
-  const [isFavorite, setIsFavorite] = useState(false)
+  const { favoritePokemons, addFavoritePokemon, deleteFavoritePokemon } = useContext(FavoriteContext)
+  const isFavorite = favoritePokemons.some(favPokemon => favPokemon.id === pokemon.id)
   const title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
 
-  useEffect(() => {
-    checkIsFavorite();
-  }, []);
-
-  const checkIsFavorite = async () => {
-    try {
-      const favorites = await SecureStore.getItemAsync('favoritePokemons')
-      if (favorites) {
-        const parsedFavorites = JSON.parse(favorites)
-        const isAlreadyFavorite = parsedFavorites.some(
-          (fav) => fav.id === pokemon.id
-        );
-        setIsFavorite(isAlreadyFavorite)
-      }
-    } catch (error) {
-      console.error('Error checking favorites:', error)
-    }
-  };
-
-  const toggleFavorite = async () => {
-    try {
-      let favorites = await SecureStore.getItemAsync('favoritePokemons')
-
-      if (!favorites) {
-        favorites = []
-      } else {
-        favorites = JSON.parse(favorites)
-      }
-
-      const isAlreadyFavorite = favorites.some((fav) => fav.id === pokemon.id)
-
-      if (isAlreadyFavorite) {
-        favorites = favorites.filter((fav) => fav.id !== pokemon.id)
-      } else {
-        favorites.push({
-          id: pokemon.id,
-          title: title,
-          imageUrl: pokemon.sprites.front_default,
-        });
-      }
-
-      await SecureStore.setItemAsync('favoritePokemons', JSON.stringify(favorites));
-      setIsFavorite(!isAlreadyFavorite);
-    } catch (error) {
-      console.error('Error toggling favorite:', error)
+  const toggleFavorite = (pokemon) => {
+    if (isFavorite) {
+      deleteFavoritePokemon(pokemon.id);
+    } else {
+      addFavoritePokemon(pokemon);
     }
   }
 
@@ -73,7 +35,11 @@ const PokemonCard = ({ navigation, pokemon }) => {
         <IconButton
           icon={isFavorite ? 'heart' : 'heart-outline'}
           size={28}
-          onPress={toggleFavorite}
+          onPress={() => toggleFavorite({
+            id: pokemon.id,
+            title: title,
+            imageUrl: pokemon.sprites.front_default,
+          })}
         />
         <Button
           mode='contained-tonal'

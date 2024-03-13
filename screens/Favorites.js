@@ -1,38 +1,15 @@
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { FONTWEIGHT, SIZES } from '../constants/theme'
-import { Button, Card, IconButton } from 'react-native-paper'
-import * as SecureStore from 'expo-secure-store'
+import { IconButton } from 'react-native-paper'
+import { FavoriteContext } from '../components/context/favoriteContext'
 
 const Favorites = () => {
-  const [favoritePokemons, setFavoritePokemons] = useState([]);
-
-  useEffect(() => {
-    loadFavorites();
-  }, []);
-
-  const loadFavorites = async () => {
-    try {
-      const favorites = await SecureStore.getItemAsync('favoritePokemons');
-      if (favorites) {
-        const parsedFavorites = JSON.parse(favorites);
-        setFavoritePokemons(parsedFavorites);
-      }
-    } catch (error) {
-      console.error('Error loading favorites:', error);
-    }
-  };
+  const { favoritePokemons, deleteFavoritePokemon } = useContext(FavoriteContext)
 
   const handleDelete = async (pokemonId) => {
     try {
-      const updatedFavorites = favoritePokemons.filter(
-        (pokemon) => pokemon.id !== pokemonId
-      );
-      await SecureStore.setItemAsync(
-        'favoritePokemons',
-        JSON.stringify(updatedFavorites)
-      );
-      setFavoritePokemons(updatedFavorites)
+      deleteFavoritePokemon(pokemonId)
     } catch (error) {
       console.error('Error deleting favorite:', error)
     }
@@ -40,7 +17,11 @@ const Favorites = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {favoritePokemons.map((pokemon) => (
+      {favoritePokemons.length === 0 ?
+        <View style={styles.message_container}>
+          <Text style={styles.message}>No favorites yet.</Text>
+        </View> :
+        favoritePokemons.map((pokemon) => (
         <PokemonFavorite key={pokemon.id} pokemon={pokemon} onDelete={handleDelete} />
       ))}
     </ScrollView>
@@ -67,6 +48,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: SIZES.small
+  },
+  message_container: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  message: {
+    fontSize: SIZES.medium,
+    fontWeight: FONTWEIGHT.bold
   },
   favorite_container: {
     flexDirection: 'row',
