@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { View } from 'react-native'
 import { Chip } from 'react-native-paper'
 import React from 'react'
-import { COLORS, SIZES } from '../../constants/theme'
+import { styles } from './Types.styles'
 
 const typeColors = {
   "normal": "#A8A77A",
@@ -48,10 +48,3 @@ const Types = ({ pokemon }) => {
 }
 
 export default Types
-
-const styles = StyleSheet.create({
-  chip_container: {
-    flexDirection: 'row',
-    gap: SIZES.small
-  },
-})

@@ -1,12 +1,10 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { FONTWEIGHT, SIZES } from '../constants/theme'
 import Stats from '../components/details/Stats'
 import Types from '../components/details/Types'
-import { Button } from 'react-native-paper'
 
 const Details = ({ route, navigation }) => {
-  const [isFavorite, setIsFavorite] = useState(false)
   const { pokemon, title } = route.params
 
   return (

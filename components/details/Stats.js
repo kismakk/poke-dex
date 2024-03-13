@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import React from 'react'
-import { COLORS, FONTWEIGHT, SIZES } from '../../constants/theme';
-import { ProgressBar } from 'react-native-paper';
+import { COLORS } from '../../constants/theme'
+import { ProgressBar } from 'react-native-paper'
+import { styles } from './Stats.styles'
 
 const Stats = ({ pokemon }) => {
   const { stats } = pokemon
@@ -34,16 +35,3 @@ const Stats = ({ pokemon }) => {
 }
 
 export default Stats
-
-const styles = StyleSheet.create({
-  stats_container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: SIZES.small
-  },
-  stat_titles: {
-    fontSize: SIZES.medium,
-    fontWeight: FONTWEIGHT.bold
-  },
-  stats: {}
-})

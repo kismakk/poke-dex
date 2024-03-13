@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native'
+import { View, StyleSheet, FlatList, SafeAreaView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import SearchBar from '../components/search/SearchBar'
 import { COLORS, SIZES } from '../constants/theme'
@@ -33,7 +33,6 @@ const Search = ({ navigation }) => {
 
   async function onSubmit() {
     setIsLoading(true)
-    // FIXME: too many callbacks if searching with a single letter
     if (searchInput.length < 2) {
       setIsLoading(false)
       return
