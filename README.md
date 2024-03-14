@@ -5,7 +5,7 @@
 </p>
 
 
-Welcome to Pokédex, a React Native project developed for a university course on mobile app development using React Native. This app is a hobby project of mine to explore developing a mobile application and provides a platform to explore information about various Pokémon. 
+Welcome to Pokédex, a project developed for a university course on mobile app development using React Native. This app is a hobby project of mine to explore developing a mobile application and provides a platform to explore information about various Pokémon. 
 
 ## Features 
 
